@@ -39,5 +39,13 @@
 / HTML
 <h1>Comments</h1>
 
+/ Evaluating Ruby Code
 
+%p= %w(foo bar).join(' ')
 
+/ HTML
+
+<p>foo bar</p>
+
+- if flash.notice
+  .notice= flash.notice
