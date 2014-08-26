@@ -1,7 +1,15 @@
+!!!
+
+/ HTML
+
+<! DOCTYPE html>
+
 #content
   .entry.feature
     %h3.title Haml
     %p.body Lorem Ipsum
+
+/ HTML
 
 <div id='content'>
   <div class='entry featured'>
@@ -9,3 +17,27 @@
     <p class='body'>Lorem Ipsum...</p>
   </div>
 </div>
+
+/ long-hand attributes to chain classes
+
+%article.featured{ class: @article.visibility } ...
+
+<article class='feature visible'>...</article>
+
+/  public comments and private comments
+
+/  This is public comment
+%h1 Comments
+
+/ HTML
+<!-- This is public comment -->
+<h1>Comments</h1>
+
+-# This is private comment
+%h1 Comments
+
+/ HTML
+<h1>Comments</h1>
+
+
+
