@@ -52,6 +52,7 @@
 
 / Lines of Ruby code can be broken up over multiple lines
 / as long as each but the last line ends with a comma ,
+/  However, it's discouraged to use multiple line Ruby inside HAML. Recommend to use presenter, decorator, and helper to make the views clean.
 
 = image_tag post.mage_url,
   class: 'featured-image'
