@@ -73,4 +73,17 @@
 
   <li class='post' id='post_1'>...</li>
 
+/ list_of will iterate result of the block into <li> elements
+
+%ul
+  = list_of [1,2,3] do |item|
+    Number #{item}
+
+  / HTML
+
+  <ul>
+    <li>Number 1</li>
+    <li>Number 2</li>
+    <li>Number 3</li>
+  </ul>
 
