@@ -11,3 +11,20 @@ def create
 
   redirect_to :back
 end
+
+# Routing
+# Ability to dispatch to a Rack-based application
+
+class HelloApp < Sinatra::Base
+  get "/" do
+    "Hello World!"
+  end
+end
+
+Example::Application.routes.draw do
+  mount HelloApp, at: '/hello'
+end
+
+# or, simply:
+
+mount "HelloApp" => '/hello'
