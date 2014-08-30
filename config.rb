@@ -26,5 +26,10 @@ Example::Application.routes.draw do
 end
 
 # or, simply:
-
 mount "HelloApp" => '/hello'
+
+# Segment Key Constraint
+# First route only accepts numerical parameter as :id
+# If :id is not numerical, it will fall through to the second route and show error
+get ':controller/show/:id' => :show, constraints: {:id => /\d+/}
+get ':controller/show/:id' => :show_error
