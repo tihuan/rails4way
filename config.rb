@@ -33,3 +33,8 @@ mount "HelloApp" => '/hello'
 # If :id is not numerical, it will fall through to the second route and show error
 get ':controller/show/:id' => :show, constraints: {:id => /\d+/}
 get ':controller/show/:id' => :show_error
+
+# shorthand
+
+get ':controller/show/:id' => :show, id: /\d+/
+get ':controller/show/:id' => :show_error
