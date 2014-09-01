@@ -38,3 +38,10 @@ get ':controller/show/:id' => :show_error
 
 get ':controller/show/:id' => :show, id: /\d+/
 get ':controller/show/:id' => :show_error
+
+# restrict subdomain
+get ':controller/show/:id' => :show, constraints: {subdomain: 'admin'}
+
+# protect records with id under 100
+get 'records/:id' => "records#protected",
+  constraints: -> { |req| req.params[:id].to_i < 100 }
