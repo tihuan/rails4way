@@ -45,3 +45,8 @@ get ':controller/show/:id' => :show, constraints: {subdomain: 'admin'}
 # protect records with id under 100
 get 'records/:id' => "records#protected",
   constraints: -> { |req| req.params[:id].to_i < 100 }
+
+# root route
+root :to => "welcome#index"
+root :to => "pages#home"
+root "user_sessions#new"
