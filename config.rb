@@ -50,3 +50,15 @@ get 'records/:id' => "records#protected",
 root :to => "welcome#index"
 root :to => "pages#home"
 root "user_sessions#new"
+
+# route globbing
+
+/items/list/base/fiction/dickens
+
+/items/list/base/books/fiction
+
+/items/list/base/books/fiction/dickens/little_dorrit
+
+# Try globbing
+
+get '/items/list/*specs' => "items#list"
