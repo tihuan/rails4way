@@ -128,4 +128,9 @@ scope :auctions, as: 'admin' do
   get 'new' => :new, as: 'new_auction' #=> admin_new_auction_url
 end
 
+# Bundling contraints
+scope :auctions, constraints: { id: /\d+/ } do
+  get 'edit/:id' => :edit
+  post 'pause/:id' => :pause
+end
 
