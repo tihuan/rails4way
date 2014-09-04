@@ -93,3 +93,10 @@ end
 
 # call item_path(auction, item) produces the following:
 '/auction/5/item/cello-bow'
+
+# CAUTION: Since we now have 'cello-bow' in our :id field. We need
+# a separate database column to store the munged version of the title
+# to serve as part of the path. So we can do something like,
+Item.find(munged_description: params[:id])
+
+# REMEMBER: words in URLs just look better!!
