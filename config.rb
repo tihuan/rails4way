@@ -134,3 +134,23 @@ scope :auctions, constraints: { id: /\d+/ } do
   post 'pause/:id' => :pause
 end
 
+# Apply constraints to a subset of routes
+scope :auctions do
+  get 'new' => :new
+  constraints id: /\d+/ do
+    get 'edit/:id' => :edit
+    post 'pause/:id' => :pause
+  end
+end
+
+# If an object has #matches?
+class DataFormatConstraint
+  def self.matches?(request)
+    request.params[:date] ~= /\A\d{4}-\d{2}-\d{2}\z/ #YYYY-MM-DD
+  end
+end
+
+# routes.rb
+constraints(DataFormatConstraint) do
+  get 'since/:date' => :since
+end
