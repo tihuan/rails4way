@@ -84,3 +84,12 @@ app.help_url #=> "http://www.exmaple.com/help"
 link_to "Auction of #{item.name}", item_path(item)
 # /auction/5/item/1
 link_to "Auction of #{item.name}", item_path(auction, item)
+
+# Modify url string by overriding to_params in the model.rb
+# item.rb
+def to_param
+  description.parameterize
+end
+
+# call item_path(auction, item) produces the following:
+'/auction/5/item/cello-bow'
