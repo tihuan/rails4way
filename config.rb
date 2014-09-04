@@ -97,6 +97,17 @@ end
 # CAUTION: Since we now have 'cello-bow' in our :id field. We need
 # a separate database column to store the munged version of the title
 # to serve as part of the path. So we can do something like,
+# REMEMBER: words in URLs just look better!!
 Item.find(munged_description: params[:id])
 
-# REMEMBER: words in URLs just look better!!
+# Scoping routing rules
+# Before
+get 'auctions/new' => 'auctions#new'
+get 'auctions/edit/:id' => 'auctions#edit'
+get 'auctions/pause/:id' => 'auctions#pause'
+# After
+scope path: '/auctions', controller: :auctions do
+  get 'new' => :new
+  get 'edit/:id' => :edit
+  get 'pause/:id' => :pause
+end
