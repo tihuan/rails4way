@@ -73,6 +73,7 @@ end
 
 # named route: route.rb
 get 'help' => 'help#index', as: 'help'
+# Rails way prefer name_path over name_url
 link_to "Help", help_path
 
 # Test name_pth in rails c
