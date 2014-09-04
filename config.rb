@@ -1,5 +1,4 @@
 # Use logger.warn to warn the team a potential malicious behavior of users
-
 def create
   begin
     group.add_member(current_user)
@@ -14,7 +13,6 @@ end
 
 # Routing
 # Ability to dispatch to a Rack-based application
-
 class HelloApp < Sinatra::Base
   get "/" do
     "Hello World!"
@@ -35,7 +33,6 @@ get ':controller/show/:id' => :show, constraints: {:id => /\d+/}
 get ':controller/show/:id' => :show_error
 
 # shorthand
-
 get ':controller/show/:id' => :show, id: /\d+/
 get ':controller/show/:id' => :show_error
 
@@ -52,7 +49,6 @@ root :to => "pages#home"
 root "user_sessions#new"
 
 # route globbing
-
 /items/list/base/fiction/dickens
 
 /items/list/base/books/fiction
@@ -60,5 +56,25 @@ root "user_sessions#new"
 /items/list/base/books/fiction/dickens/little_dorrit
 
 # Try globbing
-
 get '/items/list/*specs' => "items#list"
+
+# Globbing in action
+get 'items/q/*specs', controller: "items", action: "query"
+
+# ItemsController << ApplicationController
+def query
+  @items = Item.where(Hash[*params[:specs].split("/")])
+  if @items.empty?
+    flash[:error] = "Can't find items with those properties"
+  else
+    render :index
+  end
+end
+
+# named route: route.rb
+get 'help' => 'help#index', as: 'help'
+link_to "Help", help_path
+
+# Test name_pth in rails c
+app.help_path #=> "/help"
+app.help_url #=> "http://www.exmaple.com/help"
