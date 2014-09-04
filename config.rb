@@ -122,3 +122,10 @@ end
 scope :auctions, :archived do
 # Renders:
 '/auctions/archived'
+
+# Name Prefix Setting
+scope :auctions, as: 'admin' do
+  get 'new' => :new, as: 'new_auction' #=> admin_new_auction_url
+end
+
+
