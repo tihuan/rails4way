@@ -111,3 +111,14 @@ scope path: '/auctions', controller: :auctions do
   get 'edit/:id' => :edit
   get 'pause/:id' => :pause
 end
+# BEST
+controller :auctions do
+  get 'new' => :new
+  get 'edit/:id' => :edit
+  get 'pause/:id' => :pause
+end
+
+# Rails 4 Feature that accepts the :path option symbols
+scope :auctions, :archived do
+# Renders:
+'/auctions/archived'
