@@ -79,3 +79,8 @@ link_to "Help", help_path
 # Test name_pth in rails c
 app.help_path #=> "/help"
 app.help_url #=> "http://www.exmaple.com/help"
+
+# name_path in action
+link_to "Auction of #{item.name}", item_path(item)
+# /auction/5/item/1
+link_to "Auction of #{item.name}", item_path(auction, item)
