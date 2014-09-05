@@ -36,3 +36,15 @@ User.tardy.to_sql
       # INNER JOIN "timesheets" ON "timesheets"."user_id" = "users"."id"
       # WHERE (timesheets.submitted_at <= '2014-04-13 18:16:15.203293')
       # GROUP BY users.id"
+
+# REFACTOR: timesheets logic should be in TimeSheet
+
+class Timesheet < AcitveRecord::Base
+  scope :late, -> { where('timesheets.submitted_at <= ?', 7.days.ago) }
+end
+
+class User < AcitveRecord::Base
+  scope :tardy, -> {
+    joins(:timesheets).group("users.id").merge(Timesheet.late)
+  }
+end
