@@ -45,6 +45,8 @@ end
 
 class User < AcitveRecord::Base
   scope :tardy, -> {
+  # group(table_name.column_name)
     joins(:timesheets).group("users.id").merge(Timesheet.late)
   }
 end
+
