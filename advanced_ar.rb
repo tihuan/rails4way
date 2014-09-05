@@ -19,3 +19,20 @@ end
 
 # Pass in argument
 BillableWeek.newer_than(Date.today)
+
+# Cross-model scope
+# Retrieve users with late submissions
+class User < AcitveRecord::Base
+  scope :tardy, -> {
+    joins(:timesheets).
+    where("timesheets.submitted_at <= ?", 7.days.ago).
+    group("users.id")
+  }
+end
+
+# Use to_sql to debug scope definitions and usage
+User.tardy.to_sql
+# => "SELECT "users".* FROM "users"
+      # INNER JOIN "timesheets" ON "timesheets"."user_id" = "users"."id"
+      # WHERE (timesheets.submitted_at <= '2014-04-13 18:16:15.203293')
+      # GROUP BY users.id"
