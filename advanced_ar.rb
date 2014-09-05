@@ -11,3 +11,11 @@ end
 
 # Invoke scopes as class methods
 User.deliquent
+
+# Scope Parameters
+class BillableWeek < AcitveRecord::Base
+  scope :newer_than, ->(date) { where('start_date > ?', date) }
+end
+
+# Pass in argument
+BillableWeek.newer_than(Date.today)
