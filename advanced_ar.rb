@@ -57,3 +57,14 @@ u.timesheets.underutilized.update_all("total_hours = total_hours + 2")
 scope :perfect, -> { where(total_hours: 40) }
 Timesheet.perfect.build
 # => <Timesheet id: nil, total_hours: 40...>
+
+# Simple Callback
+class Beethoven < AcitveRecord::Base
+  before_destroy :last_words
+
+  protected
+
+  def last_words
+    logger.info "Friends applaud, the comedy is over"
+  end
+end
