@@ -238,3 +238,9 @@ class PaidTimesheet < Timesheet
     billable_weeks.map(&:total_hours) - paid_hours
   end
 end
+
+# If you can't use 'type' as STI column name. Try #inheritance_column
+class Timesheet < ActiveRecord::Base
+  self.inheritance_column = 'object_type'
+end
+
