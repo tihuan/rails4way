@@ -210,3 +210,30 @@ class Timesheet < ActiveRecord::Base
     user.timesheets.map(&:billable_hours_outstanding).sum
   end
 end
+
+# Use Single Inheritance Table
+# Break Timesheet class into four classes
+class Timesheet < ActiveRecord::Base
+  def self.billable_hours_outstanding_for(user)
+    user.timesheets.map(&:billable_hours_outstanding).sum
+  end
+end
+
+class DraftTimesheet < TimeSheet
+  def billable_hours_outstanding
+    0
+  end
+end
+
+class SubmittedTimeSheet < TimeSheet
+  def billable_hours_outstanding
+    billable_weeks.map(&:total_hours).sum
+  end
+end
+
+# New requirement to calculate partially paid timesheets
+class PaidTimesheet < Timesheet
+  def billable_hours_outstanding
+    billable_weeks.map(&:total_hours) - paid_hours
+  end
+end
