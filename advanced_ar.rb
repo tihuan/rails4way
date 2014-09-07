@@ -90,6 +90,8 @@ class Address < AcitveRecord::Base
 
   def geocode
     result = Geocoder.coordinates(to_s)
+    return false if result.empty? # halt execution
+
     self.latitude = result.first
     self.longitude = result.last
   end
