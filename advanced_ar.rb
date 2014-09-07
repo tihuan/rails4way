@@ -256,3 +256,14 @@ end
 class BillableWeek < ActiveRecord::Base
   has_many :comments, as: :commentable
 end
+
+# Create Comments table
+# migration
+class CreateComments < ActiveRecord::Migration
+  def change
+    create_table :comments do |t|
+      t.text :body
+      t.references :commentable, polymorphic: true
+    end
+  end
+end
