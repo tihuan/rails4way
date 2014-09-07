@@ -192,3 +192,21 @@ Person.where.not(last_name: 'Drake').minimum(:age)
 
 # Selects the minimum age for any family without any minors
 Person.having('min(age) > 17').group(:last_name).minimum(:age)
+
+# Single Table Inheritance
+# Bad
+class Timesheet < ActiveRecord::Base
+  def billable_hours_outstanding
+    # this violates open-closed princople and requires constant
+    # modification if requirements change
+    if submitted? && not paid?
+      billable_weeks.map(&:total_hours).sum
+    else
+      0
+    end
+  end
+
+  def self.billable_hours_outstanding_for(user)
+    user.timesheets.map(&:billable_hours_outstanding).sum
+  end
+end
