@@ -124,3 +124,17 @@ class User < AcitveRecord::Base
     self.preferences ||= Hash.new
   end
 end
+
+# Use AR #store to store serialized hash in database column
+# Use accessors to avoid interacting with hash directly
+class User < AcitveRecord::Base
+  serialize :preferences # defaults to nil
+  store :preferences, accessors: [:show_help_text]
+  ...
+end
+
+u = User.new
+#=> <User id: nil, properties: {}, ...>
+u.show_help_text = true
+u.properties
+#=> {"show_help_text" => true}
