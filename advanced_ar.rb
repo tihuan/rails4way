@@ -213,6 +213,7 @@ end
 
 # Use Single Inheritance Table
 # Break Timesheet class into four classes
+# Add 'type' in timesheets table to activate STI
 class Timesheet < ActiveRecord::Base
   def self.billable_hours_outstanding_for(user)
     user.timesheets.map(&:billable_hours_outstanding).sum
