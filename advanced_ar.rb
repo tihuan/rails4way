@@ -156,3 +156,25 @@ end
 class Invoice < AcitveRecord::Base
   before_destroy MarkDeleted
 end
+
+# Add audit logging to an AR class
+class Account < AcitveRecord::Base
+  after_create Auditor.new(DEFAULT_AUDIT_LOG)
+  after_update Auditor.new(DEFAULT_AUDIT_LOG)
+  after_destroy Auditor.new(DEFAULT_AUDIT_LOG)
+end
+
+# Refactor into an AR::Base class method
+class ActiveRecord::Base
+  def self.acts_as_audited(audit_log)
+    auditor = DEFAULT_AUDIT_LOG
+    after_create auditor
+    after_update auditor
+    after_destroy auditor
+  end
+end
+
+# Use it
+class Account < ActiveRecord::Base
+  acts_as_audited
+end
