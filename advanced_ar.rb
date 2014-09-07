@@ -68,3 +68,9 @@ class Beethoven < AcitveRecord::Base
     logger.info "Friends applaud, the comedy is over"
   end
 end
+
+# Callback One-liner
+
+class Napolean < AcitveRecord::Base
+  before_destroy { logger.info "Josephine..." }
+end
