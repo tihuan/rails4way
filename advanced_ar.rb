@@ -165,6 +165,7 @@ class Account < AcitveRecord::Base
 end
 
 # Refactor into an AR::Base class method
+# lib/core-ext/active_record_base.rb
 class ActiveRecord::Base
   def self.acts_as_audited(audit_log)
     auditor = DEFAULT_AUDIT_LOG
