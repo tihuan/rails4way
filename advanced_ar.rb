@@ -138,3 +138,21 @@ u = User.new
 u.show_help_text = true
 u.properties
 #=> {"show_help_text" => true}
+
+# Callback class
+class MarkDeleted
+  # before_destroy as class method to avoid instantiating class object for no good reason
+  def self.before_destroy(model)
+    model.update_attribute(deleted_at: Time.zone.now)
+    false
+  end
+end
+
+# Use it
+class Account < AcitveRecord::Base
+  before_destroy MarkDeleted
+end
+
+class Invoice < AcitveRecord::Base
+  before_destroy MarkDeleted
+end
