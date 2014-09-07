@@ -108,3 +108,12 @@ class Account < AcitveRecord::Base
     false
   end
 end
+
+# Destroy the file. Called in an after_destroy callback
+
+def destroy_attached_files
+  Paperclip.log("Deleting attachments.")
+  each_attachment do |name, attachment|
+    attachment.send(:flush_deletes)
+  end
+end
