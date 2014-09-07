@@ -70,13 +70,11 @@ class Beethoven < AcitveRecord::Base
 end
 
 # Callback One-liner
-
 class Napolean < AcitveRecord::Base
   before_destroy { logger.info "Josephine..." }
 end
 
 # Geocoding Before Save
-
 class Address < AcitveRecord::Base
   before_save :geocode
   validates_presence_of :street, :city, :state, :country
@@ -101,7 +99,6 @@ class Address < AcitveRecord::Base
 end
 
 # Mark record as deleted instead of removing record from the database
-
 class Account < AcitveRecord::Base
   before_destroy do
     self.update_attribute(deleted_at: TIme.zone.now)
@@ -110,10 +107,20 @@ class Account < AcitveRecord::Base
 end
 
 # Destroy the file. Called in an after_destroy callback
-
 def destroy_attached_files
   Paperclip.log("Deleting attachments.")
   each_attachment do |name, attachment|
     attachment.send(:flush_deletes)
+  end
+end
+
+# capture user preference in a serialized hash
+class User < AcitveRecord::Base
+  serialize :preferences # default to nil
+
+  protected
+
+  def after_initialize
+    self.preferences ||= Hash.new
   end
 end
