@@ -1,11 +1,11 @@
 # Scope
 # define and chain query criteria
-class Timesheet < AcitveRecord::Base
+class Timesheet < ActiveRecord::Base
   scope :submitted, -> { where(submitted: true) }
   scope :underutilized, ->{ where('total_hours < 40') }
 end
 
-class User < AcitveRecord::Base
+class User < ActiveRecord::Base
   scope :deliquent, -> { where('timesheets_updated_at < ?', 1.week.ago) }
 end
 
@@ -13,7 +13,7 @@ end
 User.deliquent
 
 # Scope Parameters
-class BillableWeek < AcitveRecord::Base
+class BillableWeek < ActiveRecord::Base
   scope :newer_than, ->(date) { where('start_date > ?', date) }
 end
 
@@ -22,7 +22,7 @@ BillableWeek.newer_than(Date.today)
 
 # Cross-model scope
 # Retrieve users with late submissions
-class User < AcitveRecord::Base
+class User < ActiveRecord::Base
   scope :tardy, -> {
     joins(:timesheets).
     where("timesheets.submitted_at <= ?", 7.days.ago).
@@ -39,11 +39,11 @@ User.tardy.to_sql
 
 # REFACTOR: timesheets logic should be in TimeSheet
 
-class Timesheet < AcitveRecord::Base
+class Timesheet < ActiveRecord::Base
   scope :late, -> { where('timesheets.submitted_at <= ?', 7.days.ago) }
 end
 
-class User < AcitveRecord::Base
+class User < ActiveRecord::Base
   scope :tardy, -> {
   # group(table_name.column_name)
     joins(:timesheets).group("users.id").merge(Timesheet.late)
@@ -59,7 +59,7 @@ Timesheet.perfect.build
 # => <Timesheet id: nil, total_hours: 40...>
 
 # Simple Callback
-class Beethoven < AcitveRecord::Base
+class Beethoven < ActiveRecord::Base
   before_destroy :last_words
 
   protected
@@ -70,12 +70,12 @@ class Beethoven < AcitveRecord::Base
 end
 
 # Callback One-liner
-class Napolean < AcitveRecord::Base
+class Napolean < ActiveRecord::Base
   before_destroy { logger.info "Josephine..." }
 end
 
 # Geocoding Before Save
-class Address < AcitveRecord::Base
+class Address < ActiveRecord::Base
   before_save :geocode
   validates_presence_of :street, :city, :state, :country
   ...
@@ -99,7 +99,7 @@ class Address < AcitveRecord::Base
 end
 
 # Mark record as deleted instead of removing record from the database
-class Account < AcitveRecord::Base
+class Account < ActiveRecord::Base
   before_destroy do
     self.update_attribute(deleted_at: TIme.zone.now)
     false
@@ -115,7 +115,7 @@ def destroy_attached_files
 end
 
 # capture user preference in a serialized hash
-class User < AcitveRecord::Base
+class User < ActiveRecord::Base
   serialize :preferences # default to nil
 
   protected
@@ -127,7 +127,7 @@ end
 
 # Use AR #store to store serialized hash in database column
 # Use accessors to avoid interacting with hash directly
-class User < AcitveRecord::Base
+class User < ActiveRecord::Base
   serialize :preferences # defaults to nil
   store :preferences, accessors: [:show_help_text]
   ...
@@ -149,16 +149,16 @@ class MarkDeleted
 end
 
 # Use it
-class Account < AcitveRecord::Base
+class Account < ActiveRecord::Base
   before_destroy MarkDeleted
 end
 
-class Invoice < AcitveRecord::Base
+class Invoice < ActiveRecord::Base
   before_destroy MarkDeleted
 end
 
 # Add audit logging to an AR class
-class Account < AcitveRecord::Base
+class Account < ActiveRecord::Base
   after_create Auditor.new(DEFAULT_AUDIT_LOG)
   after_update Auditor.new(DEFAULT_AUDIT_LOG)
   after_destroy Auditor.new(DEFAULT_AUDIT_LOG)
@@ -244,3 +244,15 @@ class Timesheet < ActiveRecord::Base
   self.inheritance_column = 'object_type'
 end
 
+# Polymorphic association
+class Comment < ActiveRecord::Base
+  belongs_to :commentable, polymorphic: true
+end
+
+class Timesheet < ActiveRecord::Base
+  has_many :comments, as: :commentable
+end
+
+class BillableWeek < ActiveRecord::Base
+  has_many :comments, as: :commentable
+end
