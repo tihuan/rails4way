@@ -179,3 +179,16 @@ end
 class Account < ActiveRecord::Base
   acts_as_audited
 end
+
+# Calculation Methods
+# The same as Person.count
+Person.calculate(:count, :all)
+
+# SELECT AVG(age) FROM people
+Person.average(:age)
+
+# Selects the minimum age for everyone with a last name other than "Drake"
+Person.where.not(last_name: 'Drake').minimum(:age)
+
+# Selects the minimum age for any family without any minors
+Person.having('min(age) > 17').group(:last_name).minimum(:age)
