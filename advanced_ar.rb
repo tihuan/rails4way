@@ -74,3 +74,23 @@ end
 class Napolean < AcitveRecord::Base
   before_destroy { logger.info "Josephine..." }
 end
+
+# Geocoding Before Save
+
+class Address < AcitveRecord::Base
+  before_save :geocode
+  validates_presence_of :street, :city, :state, :country
+  ...
+
+  def to_s
+    [street, city, state, country].compact.join(', ')
+  end
+
+  protected
+
+  def geocode
+    result = Geocoder.coordinates(to_s)
+    self.latitude = result.first
+    self.longitude = result.last
+  end
+end
