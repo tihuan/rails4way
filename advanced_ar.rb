@@ -90,9 +90,21 @@ class Address < AcitveRecord::Base
 
   def geocode
     result = Geocoder.coordinates(to_s)
-    return false if result.empty? # halt execution
+    if result.present?
+      self.latitude = result.first
+      self.longitude = result.last
+    else
+      errors[:base] << "Geocoding failed. Please check address."
+      false
+    end
+  end
+end
 
-    self.latitude = result.first
-    self.longitude = result.last
+# Mark record as deleted instead of removing record from the database
+
+class Account < AcitveRecord::Base
+  before_destroy do
+    self.update_attribute(deleted_at: TIme.zone.now)
+    false
   end
 end
