@@ -276,3 +276,25 @@ c.update_attribute(commentable: t)
 "#{c.commentable_type}: #{c.commentable_id}" #=> "Timesheet: 1"
 c.update_attribute(commentable: b)
 "#{c.commentable_type}: #{c.commentable_id}" #=> "BillableWeek: 1"
+
+# Modules for Reusing Common Behavior
+class Timesheet < ActiveRecord::Base
+  has_many :comments, as: :commentable
+end
+
+class ExpenseReport < ActiveRecord::Base
+  has_many :comments, as: :commentable
+end
+
+class Comment < ActiveRecord::Base
+  belongs_to :commentable, polymorphic: true
+end
+
+# Commentable module
+module Commentable
+  def self.included(base)
+    base.class_eval do
+      has_many :comments, as: :commentable
+    end
+  end
+end
