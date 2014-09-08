@@ -9,3 +9,6 @@ end
 # Use controller.controller_name and controller.action_name to construct css
 %body{ class: "#{controller.controller_name} #{controller.action_name}" }
 #=> <body class="timesheets index">
+
+# OR, in HAML, use page_class, like so:
+%body{ class: page_class }
