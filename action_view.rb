@@ -5,3 +5,7 @@ expose(:timesheet) { client.timesheets.find(params[:id]) }
 expose(:timesheet_approval_presenter) do
   TimesheetApprovalPresenter.new(timesheet, current_user)
 end
+
+# Use controller.controller_name and controller.action_name to construct css
+%body{ class: "#{controller.controller_name} #{controller.action_name}" }
+#=> <body class="timesheets index">
