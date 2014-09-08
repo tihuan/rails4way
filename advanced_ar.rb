@@ -306,3 +306,15 @@ module Commentable
     has_many :comments, as: :commentable
   end
 end
+
+# Modify ActiveRecord Classes at Runtime
+class Account < ActiveRecord::Base
+  ...
+
+  protected
+
+  def after_find
+    singleton = class << self; self; end
+    singleton.class_eval(config)
+  end
+end
