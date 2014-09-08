@@ -368,3 +368,11 @@ class AddHstoreExtension < ActiveRecord::Migration
     enable_extension "hstore"
   end
 end
+
+# Add an hstore column to a table
+class AddpropertiesToPhotos < ActiveRecord::Migration
+  change_table :photos do |t|
+    t.hstore :properties
+  end
+end
+
