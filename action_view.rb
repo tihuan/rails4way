@@ -36,3 +36,5 @@ flash.alert = "Uh oh.."
       .notice.alert= flash.alert
 
       = yield
+
+# To show flash messages for render template, use flash.now.notice && flash.now.alert
