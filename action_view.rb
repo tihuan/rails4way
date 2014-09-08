@@ -25,3 +25,14 @@ end
 # You also have helper method for notice and alert on flash
 flash.notice = "Welcome!"
 flash.alert = "Uh oh.."
+
+# Displaying flash messages
+# Note that .notice.alert means alert uses most of notice's CSS and only does minor modification to accommodate alert style.
+%html
+  %body
+    -if flash.notice
+      .notice= flash.notice
+    -if flash.alert
+      .notice.alert= flash.alert
+
+      = yield
