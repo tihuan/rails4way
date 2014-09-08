@@ -21,3 +21,7 @@ def create
     redirect_to home_url, alert: "Bad login :("
   end
 end
+
+# You also have helper method for notice and alert on flash
+flash.notice = "Welcome!"
+flash.alert = "Uh oh.."
