@@ -361,3 +361,10 @@ class Contact
     presence: true
   validates :message, length: { maximum: 1000 }, presence: true
 end
+
+# Utilize hstore in Postgres
+class AddHstoreExtension < ActiveRecord::Migration
+  def change
+    enable_extension "hstore"
+  end
+end
