@@ -267,3 +267,12 @@ class CreateComments < ActiveRecord::Migration
     end
   end
 end
+
+# Commentable in action
+c = Comment.create(body: 'I could be commenting anything')
+t = Timesheet.create
+b = BillableWeek.create
+c.update_attribute(commentable: t)
+"#{c.commentable_type}: #{c.commentable_id}" #=> "Timesheet: 1"
+c.update_attribute(commentable: b)
+"#{c.commentable_type}: #{c.commentable_id}" #=> "BillableWeek: 1"
