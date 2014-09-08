@@ -318,3 +318,14 @@ class Account < ActiveRecord::Base
     singleton.class_eval(config)
   end
 end
+
+# Non-persisted Models
+# Best used for form submission, etc.
+# Conversion and Naming are enough to determine
+# partial paths, routes, and naming
+class Contact
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+  include ActiveModel::Conversion
+  include ActiveModel::Validations
+end
