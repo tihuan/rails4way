@@ -298,3 +298,11 @@ module Commentable
     end
   end
 end
+
+# OR, you can use ActiveSupport::Concern
+module Commentable
+  extend ActiveSupport::Concern
+  included do
+    has_many :comments, as: :commentable
+  end
+end
