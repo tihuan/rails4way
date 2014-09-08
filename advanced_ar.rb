@@ -384,3 +384,8 @@ photo.save && photo.reload
 photo.properties #=> {:aperture=>"f/4.5", :shutter_speed=>"1/100 secs"}
 
 # NOTE: ActiveRecord does NOT keep track of changes at this point.
+# Solution is "store_accessor in model"
+# NOTE: hstore attribute is returned as a string from the database
+class Photo < ActiveRecord::Base
+  store_accessor :properties, :aperture, :shutter_speed
+end
