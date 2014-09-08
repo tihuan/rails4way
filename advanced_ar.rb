@@ -393,3 +393,12 @@ end
 # Querying hstore requires indexing. Either using :gin or :gist
 add_index :photos, :properties, using: :gin
 add_index :photos, :properties, using: :gist
+
+# Introducing Array NoSQL column type
+class AddTagsToArticles < ActiveRecord::Migration
+  def change
+    change_table :articles do |t|
+      t.string :tags, array: true
+    end
+  end
+end
