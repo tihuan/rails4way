@@ -376,3 +376,11 @@ class AddpropertiesToPhotos < ActiveRecord::Migration
   end
 end
 
+# See hstore in action
+photo = Photo.new
+photo.properties #=> nil
+photo.properties = { aperture: 'f/4.5', shtter_speed: '1/100 secs' }
+photo.save && photo.reload
+photo.properties #=> {:aperture=>"f/4.5", :shutter_speed=>"1/100 secs"}
+
+# NOTE: ActiveRecord does NOT keep track of changes at this point.
