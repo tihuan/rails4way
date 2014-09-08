@@ -398,7 +398,7 @@ add_index :photos, :properties, using: :gist
 class AddTagsToArticles < ActiveRecord::Migration
   def change
     change_table :articles do |t|
-      t.string :tags, array: true
+      t.string :tags, array: true, length: 10
     end
   end
 end
