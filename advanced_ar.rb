@@ -389,3 +389,7 @@ photo.properties #=> {:aperture=>"f/4.5", :shutter_speed=>"1/100 secs"}
 class Photo < ActiveRecord::Base
   store_accessor :properties, :aperture, :shutter_speed
 end
+
+# Querying hstore requires indexing. Either using :gin or :gist
+add_index :photos, :properties, using: :gin
+add_index :photos, :properties, using: :gist
