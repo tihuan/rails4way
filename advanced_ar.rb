@@ -402,3 +402,13 @@ class AddTagsToArticles < ActiveRecord::Migration
     end
   end
 end
+
+# Range Type in database
+# daterange
+class CreateRooms < ActiveRecord::Migration
+  def change
+    create_table :rooms do |t|
+      t.daterange :availability
+    end
+  end
+end
