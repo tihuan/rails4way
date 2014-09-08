@@ -12,3 +12,12 @@ end
 
 # OR, in HAML, use page_class, like so:
 %body{ class: page_class }
+
+# Use flash[:notice] and flash[:alert]
+def create
+  if user.try(:authorize, params[:user][:password])
+    redirect_to home_url, notice: "Welcome, #{user.first_name}"
+  else
+    redirect_to home_url, alert: "Bad login :("
+  end
+end
