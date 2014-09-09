@@ -48,3 +48,10 @@ expose(:person) do
     Person.new(first_name: "First", last_name: "Last")
   end
 end
+
+# Nested Attributes in a form
+# Use accepts_nested_attributes_for
+class Person < ActiveRecord::Base
+  has_one :address
+  accepts_nested_attributes_for :address, allow_destroy: true
+end
