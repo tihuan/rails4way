@@ -34,4 +34,6 @@ ActionView::Base.field_error_proc =
     %(<div style="color:red>ERR</div>") + html_tag
   end
 
-
+# Using Assets Host
+# config/environments/produciton.rb
+config.action_controller.asset_host = "assets.exmaple.com"
