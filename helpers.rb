@@ -74,3 +74,10 @@ end
   = form.fields_for :projects do |project_fields|
     Delete this project
       = project_fields.check_box :_destroy
+
+# Custom Helper Methods
+# app/helpers/application_helper.rb
+def page_title(name)
+  content_for(:title) { name }
+  content_tag("h1", name)
+end
