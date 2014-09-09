@@ -79,3 +79,6 @@ flash.alert = "Uh oh.."
     .opt_in
       = render 'opt_in'
  %p= submit_tag 'Save Settings'
+
+# Render collection and fallback content
+= render(entries) || "No entries exist"
