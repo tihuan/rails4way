@@ -14,3 +14,15 @@
   .text-field
     = form.label :name, "Name"
     = form.text_field :name
+
+# Custom validation error display
+# highlighting error with div .field_with_errors accomplished
+# via a Proc object in ActionView::Base class:
+module ActionView
+  class Base
+    cattr_accessor :field_error_proc
+    @@field_error_proc = Proc.new{ |html_tag, instance|
+      "<div class=\"field_with_errors\">#{html_tag}</div>".html_safe
+    }
+  end
+end
