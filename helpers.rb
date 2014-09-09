@@ -26,3 +26,12 @@ module ActionView
     }
   end
 end
+
+# customize validation error display
+# inside an initializer file
+ActionView::Base.field_error_proc =
+  Proc.new do |html_tag, instance|
+    %(<div style="color:red>ERR</div>") + html_tag
+  end
+
+
