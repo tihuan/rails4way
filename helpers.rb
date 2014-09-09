@@ -37,3 +37,14 @@ ActionView::Base.field_error_proc =
 # Using Assets Host
 # config/environments/produciton.rb
 config.action_controller.asset_host = "assets.exmaple.com"
+
+# Displaying existing values
+# Using gem Decent Exposure
+expose(:person) do
+  if person_id = (params[:person_id] || params[:id])
+    Person.find(person_id)
+  else
+    # Set default values that you want to appear in the form
+    Person.new(first_name: "First", last_name: "Last")
+  end
+end
