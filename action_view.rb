@@ -64,6 +64,8 @@ flash.alert = "Uh oh.."
       = render :opt_in
     .terms
       = render :terms
+    .captcha
+      = render 'shared/captcha'
   %p= submit_tag 'Register'
 
 # Edit Form
