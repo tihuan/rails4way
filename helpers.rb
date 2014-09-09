@@ -55,3 +55,10 @@ class Person < ActiveRecord::Base
   has_one :address
   accepts_nested_attributes_for :address, allow_destroy: true
 end
+
+# Having allow_destroy means we can destroy the associated model
+# in form control using _destroy form element
+= form_for person do |f|
+  = f.fields_for :address do |address_fields|
+    Delete this address:
+    = address_fields.check_box :_destroy
