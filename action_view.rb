@@ -28,6 +28,7 @@ flash.alert = "Uh oh.."
 
 # Displaying flash messages
 # Note that .notice.alert means alert uses most of notice's CSS and only does minor modification to accommodate alert style.
+# To show flash messages for render template, use flash.now.notice && flash.now.alert
 %html
   %body
     -if flash.notice
@@ -37,4 +38,31 @@ flash.alert = "Uh oh.."
 
       = yield
 
-# To show flash messages for render template, use flash.now.notice && flash.now.alert
+# Use Partial
+# app/views/users/_opt_in.html.haml
+%fieldset#opt_in
+  %legend Spam Opt In
+  %p
+    = check_box :user, :send_event_updates
+    Send me updates about events!
+    %br
+    = check_box :user, :send_site_updates
+    Notify me about new services
+
+# app/views/users/registration.html.haml
+# Note: render can take both symbol and string
+%h1 User Registration
+= error_emessages_for :user
+= form_for :user, url: users_path do
+  .registration
+    .details.demographics
+      = render 'details'
+      = render 'demographics'
+    .location
+      = render 'location'
+    .opt_in
+      = render :opt_in
+    .terms
+      = render :terms
+  %p= submit_tag 'Register'
+
