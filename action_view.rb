@@ -66,3 +66,14 @@ flash.alert = "Uh oh.."
       = render :terms
   %p= submit_tag 'Register'
 
+# Edit Form
+%h1 Edit User
+  = form_for :user, url: user_path(@user), method: :put do
+    .settings
+      .details
+        = render 'details'
+      .demographics
+        = render 'demographics'
+    .opt_in
+      = render 'opt_in'
+ %p= submit_tag 'Save Settings'
