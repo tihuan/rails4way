@@ -62,3 +62,15 @@ end
   = f.fields_for :address do |address_fields|
     Delete this address:
     = address_fields.check_box :_destroy
+
+# One to Many Association
+class Person < ActiveRecord::Base
+  has_many :projects
+  accepts_nested_attributes_for :projects, allow_destroy: true
+end
+
+# Form
+= form_for person do |form|
+  = form.fields_for :projects do |project_fields|
+    Delete this project
+      = project_fields.check_box :_destroy
