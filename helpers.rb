@@ -105,26 +105,26 @@ def photo_for(user, size=:thumb)
 end
 
 # Tile Display Partial
-#  'cities/_tiles.html.haml'
+# app/views/shared/_tiled_table.html.haml
 # Need to call the partial using:
 render "cities/tiles", cities: @user.cities, columns: 3
 
 # partial view
-%table.cities.tiles
-  - cities.in_groups_of(columns) do |row|
+%table.tiles
+  - collection.in_groups_of(columns) do |row|
     %tr
-      - row.each do |city|
-        %td[city]
+      - row.each do |item|
+        %td[item]
           .left
-            = image_tag(city.photo.url(:thumb))
+            = image_tag(item.photo.url(:thumb))
           .right
             .title
-              = city.name
+              = item.name
             .description
-              = city.description
+              = item.description
 
 # Wrap the partial view in a helper in order to default column size
-# helper/cities_helpers.rb
+# app/helpers/application_helper.rb
 module CitiesHelper
   def tiled(cities, columns=3)
     render "cities/tiles", cities: cities, columns: columns
