@@ -103,3 +103,17 @@ def photo_for(user, size=:thumb)
   end
   link_to(image_tag(src), user_path(user))
 end
+
+# Tile Display Partial
+%table.cities.tiles
+  - cities.in_groups_of(columns) do |row|
+    %tr
+      - row.each do |city|
+        %td[city]
+          .left
+            = image_tag(city.photo.url(:thumb))
+          .right
+            .title
+              = city.name
+            .description
+              = city.description
