@@ -122,3 +122,14 @@ render "cities/tiles", cities: @user.cities, columns: 3
               = city.name
             .description
               = city.description
+
+# Wrap the partial view in a helper in order to default column size
+# helper/cities_helpers.rb
+module CitiesHelper
+  def tiled(cities, columns=3)
+    render "cities/tiles", cities: cities, columns: columns
+  end
+end
+
+# Implementation in view
+tiled(@user.cities)
