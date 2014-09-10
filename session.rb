@@ -23,3 +23,6 @@ cookies[:list_mode] = "false"
 
 # specifying options, curly brackets are needed to avoid syntax error
 cookeis[:recheck] = { value: "false", expires: 5.minutes.from_now }
+
+# Secure option to transmit message over HTTPS
+cookies[:account_number] = { value: @account.number, secure: true}
