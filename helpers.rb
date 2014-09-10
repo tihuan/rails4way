@@ -171,4 +171,3 @@ module ApplicationHelper
       description: opts[:description]
   end
 end
-
