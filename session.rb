@@ -16,3 +16,10 @@ class SessionMaintenance
     session_store.where('updated_at < ?', period).delete_all
   end
 end
+
+# Reading and writing cookies
+# writing a simple session cookie
+cookies[:list_mode] = "false"
+
+# specifying options, curly brackets are needed to avoid syntax error
+cookeis[:recheck] = { value: "false", expires: 5.minutes.from_now }
