@@ -14,3 +14,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
               :recoverable, :rememberable, :trackable, :validatable
 end
+
+# Pundit for access policy control
+# Gemfile
+gem 'pundit'
+rails generate pundit:install
+
+# Inlude Pundit methods in ApplicatonController
+class ApplicationController < ActionController::Base
+  include Pundit
+end
