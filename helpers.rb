@@ -105,6 +105,11 @@ def photo_for(user, size=:thumb)
 end
 
 # Tile Display Partial
+#  'cities/_tiles.html.haml'
+# Need to call the partial using:
+render "cities/tiles", cities: @user.cities, columns: 3
+
+# partial view
 %table.cities.tiles
   - cities.in_groups_of(columns) do |row|
     %tr
