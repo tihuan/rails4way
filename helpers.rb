@@ -94,7 +94,7 @@ end
 = form_for(user) do |f|
   ...
 
-# photo_for helper
+# photo_for helper OR use Paperclip / CarrierWave
 def photo_for(user, size=:thumb)
   if user.profile_photo
     src = user.profile_photo.public_filename(size)
