@@ -81,3 +81,13 @@ def page_title(name)
   content_for(:title) { name }
   content_tag("h1", name)
 end
+
+# application.html.haml
+%html
+  %head
+    %title= yield :title
+
+# view template
+- page_title("New User")
+= form_for(user) do |f|
+  ...
