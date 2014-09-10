@@ -133,3 +133,42 @@ end
 
 # Implementation in view
 tiled(@user.cities)
+
+# Brillirant Refactoring
+
+# partial view using lambda
+.left
+  = link_to thumbnail.call(item), link.call(item)
+.right
+  .title
+    = link_to title.call(item), link.call(item)
+  .description
+    = description.call(item)
+
+# refactor helper using lambda
+module ApplicationHelper
+
+  def tiled(collection, opts={})
+    opts[:columns] ||= 3
+
+    opts[:thumbnail] ||= lambda do |item|
+      # law of demeter should be applied here?
+      image_tag(item.photo.url(:thumb))
+    end
+
+    opts[:title] ||= lambda { |item| item.to_s }
+
+    opts[:description] ||= lambda { |item| item.description }
+
+    opts[:link] ||= lambda { |item| item }
+
+    render "shared/tiled_table",
+      collection: collection,
+      columns: opts[:columns],
+      link: opts[:link],
+      thumbnail: opts[:thumbnail],
+      title: opts[:title],
+      description: opts[:description]
+  end
+end
+
