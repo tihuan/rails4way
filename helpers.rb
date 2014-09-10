@@ -76,6 +76,8 @@ end
       = project_fields.check_box :_destroy
 
 # Custom Helper Methods
+
+# page_title helper
 # app/helpers/application_helper.rb
 def page_title(name)
   content_for(:title) { name }
@@ -91,3 +93,13 @@ end
 - page_title("New User")
 = form_for(user) do |f|
   ...
+
+# photo_for helper
+def photo_for(user, size=:thumb)
+  if user.profile_photo
+    src = user.profile_photo.public_filename(size)
+  else
+    src = 'user_placerholder.png'
+  end
+  link_to(image_tag(src), user_path(user))
+end
