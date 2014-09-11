@@ -8,3 +8,7 @@ def show
   end
   ...
 end
+
+# Recognize that instance variablesin the context
+# of controller object is COPIED to view object.
+# We can use Decent Exposure to avoid this ugly fact!
