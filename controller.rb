@@ -1,0 +1,10 @@
+# Redirect and Render don't magically halt execution of your controller
+# action method. To prevent DoubleRenderError, try this:
+def show
+  @user = User.find(params[:id])
+  if @user.activated?
+    # explicitly calling return after redirect_to or render
+    render :activated and return
+  end
+  ...
+end
