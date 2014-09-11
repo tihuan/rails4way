@@ -12,3 +12,14 @@ end
 # Recognize that instance variablesin the context
 # of controller object is COPIED to view object.
 # We can use Decent Exposure to avoid this ugly fact!
+
+# Action Callback Class
+class OutputCompressionActionCallback
+  def self.after(controller)
+    controller.response.body = compress(controller.response.body)
+  end
+end
+
+class NewspaperController < ActionController::Base
+  after_action OutputCompressionActionCallback
+end
