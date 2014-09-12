@@ -28,3 +28,17 @@ end
 class WeblogController < ActionController::Base
   before_action -> { redirect_to new_user_session_path unless authenticated? }
 end
+
+# Stream Content
+class StreamingController < ApplicationController
+  include ActionController::Live
+
+  # Streams about 180MB of generated data to the browser
+  def stream
+    10_000_000.times do |i|
+      response.stream.write "This is line#{i}\n"
+    end
+  ensure
+    response.stream.close
+  end
+end
